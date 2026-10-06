@@ -10,8 +10,8 @@ type Todo = {
   created_at: string;
 };
 
-// Import base url from .env file
-const baseURL = import.meta.env.VITE_BASE_URL;
+// Use relative path for Vite proxy
+const baseURL = "/api";
 console.log({ baseURL });
 
 // Create a reactive reference to hold the list of todos
