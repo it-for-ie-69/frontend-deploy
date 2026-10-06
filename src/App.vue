@@ -21,19 +21,6 @@ const edit = ref(false);
 const currentTodo = ref<Todo | null>(null);
 
 async function fetchTodos() {
-  // supabase
-  //   .from("todos")
-  //   .select("*")
-  //   .then((res) => {
-  //     todos.value = res.data || [];
-  //   });
-
-  // Promise way
-  // axios.get<Todo[]>(`${baseURL}/todos`).then((res) => {
-  //   todos.value = res.data;
-  // });
-
-  // Async-await way
   const res = await axios.get<Todo[]>(`${baseURL}/todos`);
   todos.value = res.data;
 }
@@ -42,13 +29,6 @@ async function handleSubmitTodo() {
   if (!todoText.value) return;
 
   if (!edit.value) {
-    //   supabase
-    //     .from("todos")
-    //     .insert([{ title: todoText.value }])
-    //     .then(() => {
-    //       fetchTodos();
-    //       todoText.value = "";
-    //     });
     const res = await axios.post(`${baseURL}/todos`, {
       title: todoText.value,
     });
@@ -56,16 +36,6 @@ async function handleSubmitTodo() {
     todoText.value = "";
   }
   if (edit.value && currentTodo.value) {
-    // supabase
-    //   .from("todos")
-    //   .update({ title: todoText.value })
-    //   .eq("id", currentTodo.value.id)
-    //   .then(() => {
-    //     fetchTodos();
-    //     todoText.value = "";
-    //     edit.value = false;
-    //     currentTodo.value = null;
-    //   });
     const res = await axios.patch(`${baseURL}/todos/${currentTodo.value.id}`, {
       title: todoText.value,
     });
@@ -77,13 +47,6 @@ async function handleSubmitTodo() {
 }
 
 async function handleDeleteTodo(id: number) {
-  // supabase
-  //   .from("todos")
-  //   .delete()
-  //   .eq("id", id)
-  //   .then(() => {
-  //     fetchTodos();
-  //   });
   const res = await axios.delete(`${baseURL}/todos/${id}`);
   fetchTodos();
 }
